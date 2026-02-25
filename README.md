@@ -6,4 +6,4 @@ ReourceManagement excel addin is less about the resource management and more abo
 5) Excel formula based use of rules to create spill ranges.
 
 From a code perspective the application can be broken down as follows:
-!{icon](https://raw.githubusercontent.com/ITWorkingSolutions/ResourceManagement/refs/heads/asset/svg/ResourceManagement.svg)
+![icon](https://raw.githubusercontent.com/ITWorkingSolutions/ResourceManagement/refs/heads/asset/svg/ResourceManagement.svg)
