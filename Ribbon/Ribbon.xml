@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="Ribbon_OnLoad">
+	<ribbon>
+		<tabs>
+			<tab id="tabResourceManagement" label="Resource Management">
+				<group id="grpResourceManagementEdit" label="Edit" >
+					<button id="btnResourceManager" label="Resource Manager" 
+									size="large" showImage="true" getImage="OnGetImage" 
+									getEnabled="ResourceManagement_getEnabled" 
+									onAction="ResourceManagement_OnAction"/>
+				</group>
+				<group id="grpResourceManagementWorkbookData" label="Workbook Data">
+					<button id="btnRefreshAll" label="Refresh Resource Data" 
+									getImage="OnGetImage" size="large" showImage="true" 
+									getEnabled="ResourceManagement_getEnabled" 
+									onAction="ResourceManagement_OnAction"/>
+					<button id="btnRulePane" label="Show Rule Pane" 
+									getImage="OnGetImage" size="large" showImage="true" 
+									getEnabled="ResourceManagement_getEnabled" 
+									onAction="ResourceManagement_OnAction"/>
+				</group>
+				<group id="grpResourceManagementClipboard" label="Clipboard">
+					<button id="btnRMCut" label="Cut"
+						getImage="OnGetImage" size="large" showImage="true"
+						getEnabled="ResourceManagement_getEnabled"
+						onAction="ResourceManagement_OnAction"/>
+					<button id="btnRMCopy" label="Copy"
+						getImage="OnGetImage" size="large" showImage="true"
+						getEnabled="ResourceManagement_getEnabled"
+						onAction="ResourceManagement_OnAction"/>
+					<button id="btnRMPaste" label="Paste"
+							getImage="OnGetImage" size="large" showImage="true"
+							getEnabled="ResourceManagement_getEnabled"
+							onAction="ResourceManagement_OnAction"/>		
+				</group>					
+				<group id="grpResourceManagementSettings" label="Settings" >
+					<button id="btnListItemTypeAndItem" label="Selection Lists" 
+									getImage="OnGetImage" size="large" showImage="true"  
+									getEnabled="ResourceManagement_getEnabled" 
+									onAction="ResourceManagement_OnAction"/>
+					<button id="btnResourceListItem" label="Resource Name / Value"
+									getImage="OnGetImage" size="large" showImage="true" 
+									getEnabled="ResourceManagement_getEnabled" 
+									onAction="ResourceManagement_OnAction"/>
+					<button id="btnClosure" label="Closures"
+									getImage="OnGetImage" size="large" showImage="true" 
+									getEnabled="ResourceManagement_getEnabled" 
+									onAction="ResourceManagement_OnAction"/>
+					<button id="btnDatabaseManagement" label="Database Management" 
+									size="large" showImage="true" getImage="OnGetImage"
+									getEnabled="ResourceManagement_getEnabled"
+									onAction="ResourceManagement_OnAction"/>
+					<!--
+					<button id="btnComapnyLogo" label="Logo"
+									getImage="OnGetImage" size="large" showImage="true" 
+									getEnabled="ResourceManagement_getEnabled" 
+									onAction="ResourceManagement_OnAction"/>
+				-->
+				</group>
+				<group id="grpResourceManagementHelp" label="Help" >
+					<button id="btnAbout" label="About"
+									getImage="OnGetImage" size="large" showImage="true"  
+									getEnabled="ResourceManagement_getEnabled" 
+									onAction="ResourceManagement_OnAction"/>
+				</group>
+			</tab>
+		</tabs>
+	</ribbon>
+</customUI>

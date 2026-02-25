@@ -1,0 +1,144 @@
+{
+  "views": [
+    {
+      "name": "vwDim_Resource",
+      "displayName": "Resources",
+      "mergedFieldTarget": true,
+      "fields": [
+        { "name": "ResourceID", "displayName": "Resource ID", "dataType": "Text", "role": "Key" },
+        { "name": "PreferredName", "displayName": "Preferred Name", "dataType": "Text", "role": "Attribute" },
+        { "name": "FirstName", "displayName": "First Name", "dataType": "Text", "role": "Attribute" },
+        { "name": "LastName", "displayName": "Last Name", "dataType": "Text", "role": "Attribute" },
+        { "name": "GenderName", "displayName": "Gender", "dataType": "Text", "role": "Lookup" },
+        { "name": "SalutationName", "displayName": "Salutation", "dataType": "Text", "role": "Lookup" },
+        { "name": "Email", "displayName": "Email", "dataType": "Text", "role": "Attribute" },
+        { "name": "Phone", "displayName": "Phone", "dataType": "Text", "role": "Attribute" },
+        { "name": "IsActiveOnDate", "displayName": "Active On Date", "dataType": "Boolean", "role": "Computed" }
+      ],
+      "relations": [
+        {
+          "toView": "vwFact_ResourceCustomField",
+          "join": [
+            { "fromField": "ResourceID", "toField": "ResourceID" }
+          ]
+        },
+        {
+          "toView": "vwFact_ResourceAvailabilityPattern",
+          "join": [
+            { "fromField": "ResourceID", "toField": "ResourceID" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "vwDim_CustomField",
+      "displayName": "Custom Field Definitions",
+      "fields": [
+        { "name": "FieldID", "displayName": "Field ID", "dataType": "Text", "role": "Key" },
+        { "name": "FieldName", "displayName": "Field Name", "dataType": "Text", "role": "Display" },
+        { "name": "ValueType", "displayName": "Value Type", "dataType": "Text", "role": "ValueType" },
+        { "name": "ListItemTypeID", "displayName": "List Type", "dataType": "Text", "role": "LookupType" }
+      ],
+      "relations": []
+    },
+    {
+      "name": "vwFact_ResourceCustomField",
+      "displayName": "Resource Custom Field Values",
+      "fields": [
+        { "name": "ResourceID", "displayName": "Resource ID", "dataType": "Text", "role": "ForeignKey" },
+        { "name": "FieldID", "displayName": "Field ID", "dataType": "Text", "role": "ForeignKey" },
+        { "name": "ValueID", "displayName": "Value ID", "dataType": "Text", "role": "Lookup" },
+        { "name": "ValueName", "displayName": "Value", "dataType": "Text", "role": "Display" },
+        { "name": "ValueText", "displayName": "Text Value", "dataType": "Text", "role": "Attribute" }
+      ],
+      "relations": [
+        {
+          "toView": "vwDim_CustomField",
+          "join": [
+            { "fromField": "FieldID", "toField": "FieldID" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "vwFact_ResourceAvailabilityPattern",
+      "displayName": "Resource Availability Patterns",
+      "fields": [
+        { "name": "ResourceID", "displayName": "Resource ID", "dataType": "Text", "role": "ForeignKey" },
+        { "name": "PatternType", "displayName": "Pattern Type", "dataType": "Text", "role": "Attribute" },
+        { "name": "Mode", "displayName": "Mode", "dataType": "Text", "role": "Attribute" },
+        { "name": "AllDay", "displayName": "All Day", "dataType": "Boolean", "role": "Attribute" },
+        { "name": "StartTime", "displayName": "Start Time", "dataType": "Text", "role": "Attribute" },
+        { "name": "EndTime", "displayName": "End Time", "dataType": "Text", "role": "Attribute" },
+        { "name": "RangeStartDate", "displayName": "Range Start", "dataType": "Text", "role": "Attribute", 
+          "isTimeBounded": true, "partnerField": "RangeEndDate", "requiresPartner": true, "allowedOperators": [">=", "="] },
+        { "name": "RangeEndDate", "displayName": "Range End", "dataType": "Text", "role": "Attribute",
+          "isTimeBounded": true, "partnerField": "RangeStartDate", "requiresPartner": true, "allowedOperators": ["<=", "="] },
+        { "name": "RecurWeeks", "displayName": "Recur Weeks", "dataType": "Number", "role": "Attribute" },
+        { "name": "WeeklyDayOfWeek", "displayName": "Weekly Day", "dataType": "Text", "role": "Attribute" },
+        { "name": "MonthlyType", "displayName": "Monthly Type", "dataType": "Text", "role": "Attribute" },
+        { "name": "MonthlyDayOfMonth", "displayName": "Day of Month", "dataType": "Number", "role": "Attribute" },
+        { "name": "MonthlyOrdinal", "displayName": "Ordinal", "dataType": "Text", "role": "Attribute" },
+        { "name": "MonthlyDayOfWeek", "displayName": "Day of Week", "dataType": "Text", "role": "Attribute" },
+        { "name": "RecurMonths", "displayName": "Recur Months", "dataType": "Number", "role": "Attribute" },
+        { "name": "PatternStartDate", "displayName": "Pattern Start", "dataType": "Text", "role": "Attribute",
+          "isTimeBounded": true, "partnerField": "PatternEndDate", "requiresPartner": true, "allowedOperators": [">=", "="] },
+        { "name": "PatternEndDate", "displayName": "Pattern End", "dataType": "Text", "role": "Attribute",
+          "isTimeBounded": true, "partnerField": "PatternStartDate", "requiresPartner": true, "allowedOperators": ["<=", "="] }
+      ],
+      "relations": []
+    },
+    {
+      "name": "vwDim_List",
+      "displayName": "Lists",
+      "fields": [
+        { "name": "ListItemName", "displayName": "List Item", "dataType": "Text", "role": "Attribute" },
+        { "name": "ListTypeID", "displayName": "List Type ID", "dataType": "Text", "role": "ForeignKey" }
+      ],
+      "relations": []
+    },
+    {
+      "name": "vwConcept_Availability",
+      "displayName": "Resource Availability (Concept)",
+      "isConceptual": true,
+      "fields": [
+        { "name": "Availability", "displayName": "Availability", "dataType": "Text", "role": "Attribute",
+          "mergedIntoView": "vwDim_Resource", "allowedValues": [ "Available", "Unavailable", "PartiallyAvailable" ] },
+        { "name": "AvailabilityFromDate", "displayName": "Availability From Date", "dataType": "Date", "role": "Attribute",
+          "mergedIntoView": "vwDim_Resource", "isTimeBounded": true, "partnerField": "AvailabilityToDate", "requiresPartner": true,
+          "allowedOperators": [ ">=" ], "supportsSlicing": true, "slicingOptions": [ "Hourly", "Daily", "Weekly", "Monthly", "WholeRange" ],
+          "slicingDescriptions": { "ByAvailabilitySegments": "Use actual availability segments",
+            "Daily": "Evaluate availability day-by-day", "WholeRange": "Treat the entire window as one block"},
+          "defaultSlicing": "PerSegment", "timeBoundHandler": "Availability" },
+        { "name": "AvailabilityToDate", "displayName": "Availability To Date", "dataType": "Date", "role": "Attribute",
+          "mergedIntoView": "vwDim_Resource", "isTimeBounded": true, "partnerField": "AvailabilityFromDate", "requiresPartner": true,
+          "allowedOperators": [ "<=" ], "supportsSlicing": true, "slicingOptions": [ "Hourly", "Daily", "Weekly", "Monthly", "WholeRange" ],
+          "slicingDescriptions": { "ByAvailabilitySegments": "Use actual availability segments",
+            "Daily": "Evaluate availability day-by-day", "WholeRange": "Treat the entire window as one block"},
+          "defaultSlicing": "PerSegment", "timeBoundHandler": "Availability" }
+      ],
+      "relations": [
+        {
+          "toView": "vwDim_Resource",
+          "join": [
+            {
+              "fromField": "ResourceID",
+              "toField": "ResourceID"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "vwDim_Closure",
+      "displayName": "Closures",
+      "fields": [
+        { "name": "ClosureID", "displayName": "Closure ID", "dataType": "Text", "role": "Key" },
+        { "name": "ClosureName", "displayName": "Closure Name", "dataType": "Text", "role": "Attribute" },
+        { "name": "StartDate", "displayName": "Start Date", "dataType": "Date", "role": "Attribute" },
+        { "name": "EndDate", "displayName": "End Date", "dataType": "Date", "role": "Attribute" }
+      ],
+      "relations": []
+    }
+  ]
+}

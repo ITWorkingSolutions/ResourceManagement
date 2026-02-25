@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\ExcelDna.AddIn.1.9.0\build\ExcelDna.AddIn.props" Condition="Exists('packages\ExcelDna.AddIn.1.9.0\build\ExcelDna.AddIn.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{04D8D694-75B4-4DCC-B08B-5B49BFCDE423}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ResourceManagement</RootNamespace>
+    <AssemblyName>ResourceManagement</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>ResourceManagement.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>ResourceManagement.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ExcelDna.Integration, Version=1.1.0.0, Culture=neutral, PublicKeyToken=f225e9659857edbe, processorArchitecture=MSIL">
+      <HintPath>packages\ExcelDna.Integration.1.9.0\lib\net462\ExcelDna.Integration.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelDna.IntelliSense, Version=1.1.0.0, Culture=neutral, PublicKeyToken=f225e9659857edbe, processorArchitecture=MSIL">
+      <HintPath>packages\ExcelDna.IntelliSense.1.9.0\lib\net462\ExcelDna.IntelliSense.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Sqlite, Version=10.0.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Data.Sqlite.Core.10.0.1\lib\netstandard2.0\Microsoft.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SQLitePCLRaw.batteries_v2, Version=2.1.11.2622, Culture=neutral, PublicKeyToken=8226ea5df37bcae9, processorArchitecture=MSIL">
+      <HintPath>packages\SQLitePCLRaw.bundle_e_sqlite3.2.1.11\lib\net461\SQLitePCLRaw.batteries_v2.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.core, Version=2.1.11.2622, Culture=neutral, PublicKeyToken=1488e028ca7ab535, processorArchitecture=MSIL">
+      <HintPath>packages\SQLitePCLRaw.core.2.1.11\lib\netstandard2.0\SQLitePCLRaw.core.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.provider.dynamic_cdecl, Version=2.1.11.2622, Culture=neutral, PublicKeyToken=b68184102cba0b3b, processorArchitecture=MSIL">
+      <HintPath>packages\SQLitePCLRaw.provider.dynamic_cdecl.2.1.11\lib\netstandard2.0\SQLitePCLRaw.provider.dynamic_cdecl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=6.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.6.0.1\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=6.0.0.11, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Json.6.0.11\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About\About.vb" />
+    <Compile Include="Addin\AddInContext.vb" />
+    <Compile Include="Common Helpers\ErrorHandler.vb" />
+    <Compile Include="Common Helpers\FormHelpers.vb" />
+    <Compile Include="Common Helpers\DateTimeHelpers.vb" />
+    <Compile Include="Common Helpers\InputBoxHelper.vb" />
+    <Compile Include="Addin\IntelliSenseAddIn.vb" />
+    <Compile Include="Common Helpers\Logo.vb" />
+    <Compile Include="Common Helpers\MessageBoxHelper.vb" />
+    <Compile Include="Addin\ResourceManagementAddIn.vb" />
+    <Compile Include="Common Helpers\WindowsAPIs.vb" />
+    <Compile Include="Excel Handlers\ExcelRuleAvailabilityEngine.vb" />
+    <Compile Include="Excel Handlers\ExcelRuleViewMap.vb" />
+    <Compile Include="Excel Handlers\ExcelRuleViewMapLoader.vb" />
+    <Compile Include="Excel Handlers\ExcelWindowHook.vb" />
+    <Compile Include="Form\Custom\DropButtonOverlay.vb" />
+    <Compile Include="Form\Custom\DropListOverlay.vb" />
+    <Compile Include="Form\Custom\NativeForm.vb" />
+    <Compile Include="Form\Custom\ExcelRuleDesigner.Designer.vb">
+      <DependentUpon>ExcelRuleDesigner.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Custom\ExcelRuleDesigner.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Form\Custom\TaskPaneManager.vb" />
+    <Compile Include="Excel Handlers\ExcelCellRuleStore.vb" />
+    <Compile Include="Excel Handlers\ExcelContextMenu.vb" />
+    <Compile Include="Excel Handlers\ExcelEventHandler.vb" />
+    <Compile Include="Excel Handlers\ResourceAvailabilityFunction.vb" />
+    <Compile Include="Excel Handlers\ResourceManagementFunctions.vb" />
+    <Compile Include="Excel Handlers\ResourceManagementViews.vb" />
+    <Compile Include="Common Helpers\UIMessageOwner.vb" />
+    <Compile Include="Common Helpers\UserFriendlyException.vb" />
+    <Compile Include="Common Helpers\WindowWrapper.vb" />
+    <Compile Include="Form\Custom\SortableBindingList%28Of T%29.vb" />
+    <Compile Include="Form\ExtendedListView.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\TabControlNoTabs.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Form\Availability.Designer.vb">
+      <DependentUpon>Availability.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Availability.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Closure.Designer.vb">
+      <DependentUpon>Closure.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Closure.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\ListItemTypeAndItem.Designer.vb">
+      <DependentUpon>ListItemTypeAndItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\ListItemTypeAndItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\Resource.Designer.vb">
+      <DependentUpon>Resource.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\Resource.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\ResourceListItem.Designer.vb">
+      <DependentUpon>ResourceListItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\ResourceListItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\ResourceManager.Designer.vb">
+      <DependentUpon>ResourceManager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\ResourceManager.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\SelectDefaultMode.Designer.vb">
+      <DependentUpon>SelectDefaultMode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\SelectDefaultMode.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Excel Handlers\ExcelRuleEngine.vb" />
+    <Compile Include="Excel Handlers\ExcelEventMonitor.vb" />
+    <Compile Include="Generated\ViewMetadata.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Ribbon\Ribbon.vb" />
+    <Compile Include="Form\DatabaseManager.Designer.vb">
+      <DependentUpon>DatabaseManager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Form\DatabaseManager.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SQLite\Core\DatabaseOpen.vb" />
+    <Compile Include="SQLite\Core\DatabaseSchemaVersioning.vb" />
+    <Compile Include="SQLite\Core\SQLiteCommandWrapper.vb" />
+    <Compile Include="SQLite\Core\SQLiteConnectionWrapper.vb" />
+    <Compile Include="SQLite\Core\SQLiteDataRow.vb" />
+    <Compile Include="SQLite\Core\SQLiteDataRowReader.vb" />
+    <Compile Include="SQLite\Core\SQLiteTransactionWrapper.vb" />
+    <Compile Include="SQLite\Config\DatabaseConfig.vb" />
+    <Compile Include="SQLite\Config\DatabaseConfigManager.vb" />
+    <Compile Include="SQLite\Config\DatabaseConfigService.vb" />
+    <Compile Include="App Config\ListItemSystemReferenceMap.vb" />
+    <Compile Include="App Config\ListItemTypeSystemCatalog.vb" />
+    <Compile Include="SQLite\Loader Saver\RecordLoader.vb" />
+    <Compile Include="SQLite\Loader Saver\RecordSaver.vb" />
+    <Compile Include="Common Helpers\GuidFactory.vb" />
+    <Compile Include="SQLite\Records\ISQLiteRecord.vb" />
+    <Compile Include="SQLite\Records\RecordBinaryAsset.vb" />
+    <Compile Include="SQLite\Records\RecordClosure.vb" />
+    <Compile Include="SQLite\Records\RecordExcelRule.vb" />
+    <Compile Include="SQLite\Records\RecordListItem.vb" />
+    <Compile Include="SQLite\Records\RecordListItemType.vb" />
+    <Compile Include="SQLite\Records\RecordMetadata.vb" />
+    <Compile Include="SQLite\Records\RecordPatternDateRange.vb" />
+    <Compile Include="SQLite\Records\RecordPatternMonthly.vb" />
+    <Compile Include="SQLite\Records\RecordPatternRange.vb" />
+    <Compile Include="SQLite\Records\RecordPatternWeekly.vb" />
+    <Compile Include="SQLite\Records\RecordPatternWeeklyDays.vb" />
+    <Compile Include="SQLite\Records\RecordResource.vb" />
+    <Compile Include="SQLite\Records\RecordResourceAvailability.vb" />
+    <Compile Include="SQLite\Records\RecordResourceListItem.vb" />
+    <Compile Include="SQLite\Records\RecordResourceNameValue.vb" />
+    <Compile Include="SQLite\Records\RecordResourceNameValueListItem.vb" />
+    <Compile Include="SQLite\Schema\DatabaseCreator.vb" />
+    <Compile Include="SQLite\Schema\SchemaDependencyResolver.vb" />
+    <Compile Include="SQLite\Schema\SchemaField.vb" />
+    <Compile Include="SQLite\Schema\SchemaForeignKey.vb" />
+    <Compile Include="SQLite\Schema\SchemaLoader.vb" />
+    <Compile Include="SQLite\Schema\SchemaManifest.vb" />
+    <Compile Include="SQLite\Schema\SchemaSqlBuilder.vb" />
+    <Compile Include="SQLite\Schema\SchemaTable.vb" />
+    <Compile Include="App Config\ListItemSystemReference.vb" />
+    <Compile Include="SQLite\Schema\SchemaView.vb" />
+    <Compile Include="SQLite\Schema\SchemaViewDependencyResolver.vb" />
+    <Compile Include="SQLite\Schema\ViewCreator.vb" />
+    <Compile Include="Common Helpers\EnumEntries.vb" />
+    <Compile Include="UIModel\UILoaderSaverAvailability.vb" />
+    <Compile Include="UIModel\UILoaderSaverClosure.vb" />
+    <Compile Include="UIModel\UILoaderSaverDatabaseManagement.vb" />
+    <Compile Include="UIModel\UILoaderSaverExcelRuleDesigner.vb" />
+    <Compile Include="UIModel\UILoaderSaverListItemTypeAndItem.vb" />
+    <Compile Include="UIModel\UILoaderSaverMetadata.vb" />
+    <Compile Include="UIModel\UILoaderSaverResource.vb" />
+    <Compile Include="UIModel\UILoaderSaverResourceListItem.vb" />
+    <Compile Include="UIModel\UILoaderSaverResourceManager.vb" />
+    <Compile Include="UIModel\UIModelAvailability.vb" />
+    <Compile Include="UIModel\UIModelClosures.vb" />
+    <Compile Include="UIModel\UIModelDatabaseManagement.vb" />
+    <Compile Include="UIModel\UIModelExcelRuleDesigner.vb" />
+    <Compile Include="UIModel\UIModelListItemTypeAndItem.vb" />
+    <Compile Include="UIModel\UIModelResourceListItem.vb" />
+    <Compile Include="UIModel\UIModelResourceManager.vb" />
+    <Compile Include="UIModel\UIModelResources.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Form\Availability.resx">
+      <DependentUpon>Availability.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Closure.resx">
+      <DependentUpon>Closure.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Custom\ExcelRuleDesigner.resx">
+      <DependentUpon>ExcelRuleDesigner.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\ListItemTypeAndItem.resx">
+      <DependentUpon>ListItemTypeAndItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\Resource.resx">
+      <DependentUpon>Resource.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\ResourceListItem.resx">
+      <DependentUpon>ResourceListItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\ResourceManager.resx">
+      <DependentUpon>ResourceManager.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\SelectDefaultMode.resx">
+      <DependentUpon>SelectDefaultMode.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\DatabaseManager.resx">
+      <DependentUpon>DatabaseManager.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="ResourceManagement-AddIn.dna" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\ExcelDna.Build.props" />
+    <EmbeddedResource Include="SQLite\Schema\Json\SchemaManifest.json" />
+    <EmbeddedResource Include="SQLite\Schema\Json\ExcelRuleViewMap.json" />
+    <None Include="Tools\GenerateViewMetadata.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Ribbon\Ribbon.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\PNG\64\64closure.png" />
+    <EmbeddedResource Include="Resources\PNG\64\64logo.png" />
+    <EmbeddedResource Include="Resources\PNG\64\64question.png" />
+    <EmbeddedResource Include="Resources\PNG\64\64report.png" />
+    <EmbeddedResource Include="Resources\PNG\64\64reportinstancemanagement.png" />
+    <EmbeddedResource Include="Resources\PNG\64\64resource.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\24calendar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24deflautvalues.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24generatereport.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24openfolder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24question.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\PNG\64\64databasemanager.png" />
+    <EmbeddedResource Include="Resources\PNG\64\64resourcemanager.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\PNG\64\64listitem.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24update.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24updatecommit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16email.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16office.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16pen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16telephone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16location.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16idcard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16contact.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16lifecycle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16classification.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24set.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16role.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\16filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16leftandrightarrows.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16pattern.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16toggle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\PNG\64\64tag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\16tag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SQLite\Schema\Views\vwDim_Closure.sql" />
+    <EmbeddedResource Include="SQLite\Schema\Views\vwDim_CustomField.sql" />
+    <EmbeddedResource Include="SQLite\Schema\Views\vwDim_CustomFieldValue.sql" />
+    <EmbeddedResource Include="SQLite\Schema\Views\vwDim_Resource.sql" />
+    <EmbeddedResource Include="SQLite\Schema\Views\vwFact_ResourceCustomField.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SQLite\Schema\Views\vwFact_ResourceAvailabilityPattern.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\PNG\64\64refreshall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\PNG\64\64copy.png" />
+    <EmbeddedResource Include="Resources\PNG\64\64cut.png" />
+    <EmbeddedResource Include="Resources\PNG\64\64paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24cut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24copywhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24cutwhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\24pastewhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\16field.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SQLite\Schema\Views\vwDim_List.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\ExcelDna.AddIn.1.9.0\build\ExcelDna.AddIn.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\ExcelDna.AddIn.1.9.0\build\ExcelDna.AddIn.props'))" />
+    <Error Condition="!Exists('packages\ExcelDna.AddIn.1.9.0\build\ExcelDna.AddIn.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\ExcelDna.AddIn.1.9.0\build\ExcelDna.AddIn.targets'))" />
+  </Target>
+  <Import Project="packages\ExcelDna.AddIn.1.9.0\build\ExcelDna.AddIn.targets" Condition="Exists('packages\ExcelDna.AddIn.1.9.0\build\ExcelDna.AddIn.targets')" />
+  <PropertyGroup>
+    <PreBuildEvent>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(ProjectDir)Tools\GenerateViewMetadata.ps1" -ProjectDir "$(ProjectDir)"</PreBuildEvent>
+  </PropertyGroup>
+</Project>
