@@ -4,6 +4,8 @@ ReourceManagement excel addin is less about the resource management and more abo
 3) task pane for defining rules and applying them excel worksheet cells, related to 2) customXML.
 4) cell based dropdown lists (single and multi select) tied to application rule.
 5) Excel formula based use of rules to create spill ranges.
+
+From a code perspective the application can be broken down as follows:
 ![ResourceManagement](https://github.com/user-attachments/assets/a5e640c4-bf2e-4e1e-a7ee-eaeaaa71a0ae)
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
