@@ -282,7 +282,7 @@ Public Class ExcelRuleDesigner
       End If
 
       If lv Is lvRuleFilters Then
-        Dim fieldInfo As ExcelRuleViewMapField = _model.ViewMapHelper.GetField(tag.ViewName, tag.FieldName)
+        Dim fieldInfo As ExcelRuleViewMapField = _model.ViewMapHelper.GetField(tag.ViewName, tag.FieldName, tag.FieldID)
         ' ------------------------------
         ' Section 3: Operator selection (Filters only)
         ' ------------------------------
@@ -2478,7 +2478,7 @@ Public Class ExcelRuleDesigner
   ' ==========================================================================================
   Private Function GetDefaultOperator(tag As FieldTag) As String
     Try
-      Dim fieldInfo = _model.ViewMapHelper.GetField(tag.ViewName, tag.FieldName)
+      Dim fieldInfo = _model.ViewMapHelper.GetField(tag.ViewName, tag.FieldName, tag.FieldID)
 
       If fieldInfo IsNot Nothing AndAlso
        fieldInfo.AllowedOperators IsNot Nothing AndAlso
@@ -2573,7 +2573,7 @@ Public Class ExcelRuleDesigner
     ' ------------------------------------------------------------
     For Each item As ListViewItem In lvRuleFilters.Items
       Dim tag = DirectCast(item.Tag, FieldTag)
-      Dim fm = _model.ViewMapHelper.GetField(tag.ViewName, tag.FieldName)
+      Dim fm = _model.ViewMapHelper.GetField(tag.ViewName, tag.FieldName, tag.FieldID)
       If fm Is Nothing Then Continue For
       ' 1. ValueBinding must be set (string must not be empty)
       Dim vb As String = If(tag.ValueBinding, "").Trim()
@@ -2636,7 +2636,7 @@ Public Class ExcelRuleDesigner
       Dim tag = DirectCast(item.Tag, FieldTag)
 
       ' Look up the field metadata
-      Dim fm = _model.ViewMapHelper.GetField(tag.ViewName, tag.FieldName)
+      Dim fm = _model.ViewMapHelper.GetField(tag.ViewName, tag.FieldName, tag.FieldID)
       If fm Is Nothing Then Continue For
 
       If fm.SupportsSlicing Then
@@ -3404,7 +3404,7 @@ Public Class ExcelRuleDesigner
         Exit Sub
       End If
       Dim refType As String = tag.RefType
-      Dim field As ExcelRuleViewMapField = _model.ViewMapHelper.GetField(tag.ViewName, tag.FieldName)
+      Dim field As ExcelRuleViewMapField = _model.ViewMapHelper.GetField(tag.ViewName, tag.FieldName, tag.FieldID)
       Dim dataType As String = field.DataType?.Trim().ToLowerInvariant()
       If Not ValidateRuleParameterType(dataType, refType, value, "") Then
         MessageBox.Show("Parameter must be the correct type for the filter field.")
@@ -3481,7 +3481,7 @@ Public Class ExcelRuleDesigner
         Exit Sub
       End If
       Dim refType As String = tag.RefType
-      Dim field As ExcelRuleViewMapField = _model.ViewMapHelper.GetField(tag.ViewName, tag.FieldName)
+      Dim field As ExcelRuleViewMapField = _model.ViewMapHelper.GetField(tag.ViewName, tag.FieldName, tag.FieldID)
       Dim dataType As String = field.DataType?.Trim().ToLowerInvariant()
       If Not ValidateRuleParameterType(dataType, refType, "", rng.Address) Then
         MessageBox.Show("Parameter must be the correct type for the filter field.")
@@ -3603,7 +3603,8 @@ Public Class ExcelRuleDesigner
         Exit Sub
       End If
       Dim refType As String = tag.RefType
-      Dim field As ExcelRuleViewMapField = _model.ViewMapHelper.GetField(tag.ViewName, tag.FieldName)
+
+      Dim field As ExcelRuleViewMapField = _model.ViewMapHelper.GetField(tag.ViewName, tag.FieldName, tag.FieldID)
       Dim dataType As String = field.DataType?.Trim().ToLowerInvariant()
       If Not ValidateRuleParameterType(dataType, refType, "", rng.Address) Then
         MessageBox.Show("Parameter must be the correct type for the filter field.")
@@ -3710,7 +3711,7 @@ Public Class ExcelRuleDesigner
                       Exit Sub
                     End If
                     Dim refType As String = tag.RefType
-                    Dim field As ExcelRuleViewMapField = _model.ViewMapHelper.GetField(tag.ViewName, tag.FieldName)
+                    Dim field As ExcelRuleViewMapField = _model.ViewMapHelper.GetField(tag.ViewName, tag.FieldName, tag.FieldID)
                     Dim dataType As String = field.DataType?.Trim().ToLowerInvariant()
                     If Not ValidateRuleParameterType(dataType, refType, "", n.Name) Then
                       MessageBox.Show("Parameter must be the correct type for the filter field.")

@@ -1,5 +1,6 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports System.Text
+Imports MS.Internal
 
 Friend Class ExcelRuleViewMap
   Public Property Views As List(Of ExcelRuleViewMapView)
@@ -102,16 +103,37 @@ Friend Class ExcelRuleViewMapHelper
   ' ============================================================
   '  Field lookup
   ' ============================================================
-  Friend Function GetField(viewName As String, fieldName As String) As ExcelRuleViewMapField
+  Friend Function GetField(viewName As String, fieldName As String, Optional fieldId As String = "") As ExcelRuleViewMapField
     Dim v = GetView(viewName)
     If v Is Nothing Then Return Nothing
-
-    Return v.Fields.
-            FirstOrDefault(Function(f) f.Name.Equals(fieldName, StringComparison.OrdinalIgnoreCase))
+    ' Depending if used defined field (fieldID used) or system field (fieldName used) 
+    ' 1) FieldID
+    If Not String.IsNullOrEmpty(fieldId) Then
+      Dim byId = v.Fields.FirstOrDefault(Function(f) String.Equals(f.FieldID, fieldId, StringComparison.OrdinalIgnoreCase))
+      If byId IsNot Nothing Then Return byId
+    End If
+    '2 fieldName
+    If Not String.IsNullOrEmpty(fieldName) Then
+      Dim byName = v.Fields.FirstOrDefault(Function(f) f.Name.Equals(fieldName, StringComparison.OrdinalIgnoreCase))
+      If byName IsNot Nothing Then
+        Return byName
+      End If
+    End If
+    Return Nothing
   End Function
-
-  Friend Function GetFieldDisplayName(viewName As String, fieldName As String) As String
-    Dim f = GetField(viewName, fieldName)
+  'Friend Function GetField(viewName As String, fieldName As String) As ExcelRuleViewMapField
+  '  Dim v = GetView(viewName)
+  '  If v Is Nothing Then Return Nothing
+  '  If Not String.IsNullOrEmpty(fieldName) Then
+  '    Dim byName = v.Fields.FirstOrDefault(Function(f) f.Name.Equals(fieldName, StringComparison.OrdinalIgnoreCase))
+  '    If byName IsNot Nothing Then
+  '      Return byName
+  '    End If
+  '  End If
+  '  Return Nothing
+  'End Function
+  Friend Function GetFieldDisplayName(viewName As String, fieldName As String, Optional fieldId As String = "") As String
+    Dim f = GetField(viewName, fieldName, fieldId)
     Return If(f Is Nothing, Nothing, f.DisplayName)
   End Function
 

@@ -136,6 +136,21 @@ Friend Module UILoaderSaverExcelRuleDesigner
         model.RuleDetail.RuleName = model.SelectedRule.RuleName
         model.RuleDetail.RuleType = model.SelectedRule.RuleType
 
+        ' --- Update the rule field names in selected values and filters as the end user my have changed the names --- 
+        For Each sv In model.RuleDetail.SelectedValues
+          If Not String.IsNullOrEmpty(sv.FieldID) Then
+            Dim f = model.ViewMapHelper.GetField(sv.View, sv.Field, sv.FieldID)
+            If f IsNot Nothing Then sv.Field = f.Name
+          End If
+        Next
+
+        For Each flt In model.RuleDetail.Filters
+          If Not String.IsNullOrEmpty(flt.FieldID) Then
+            Dim f = model.ViewMapHelper.GetField(flt.View, flt.Field, flt.FieldID)
+            If f IsNot Nothing Then flt.Field = f.Name
+          End If
+        Next
+
         ' --- Ensure every filter has a stable FilterID ---
         For Each f In model.RuleDetail.Filters
           If String.IsNullOrEmpty(f.FilterID) Then
