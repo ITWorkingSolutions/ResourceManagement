@@ -541,6 +541,13 @@ Public Module ExcelEventHandler
 
       Dim xl = CType(ExcelDnaUtil.Application, Excel.Application)
 
+      ' Excel can be in a state where ActiveWindow/ActivePane are not valid
+      If xl.ActiveWindow Is Nothing Then Exit Sub
+      If xl.ActiveWindow.ActivePane Is Nothing Then Exit Sub
+
+      ' If the cell's sheet is no longer the active sheet, bail out
+      If Not Object.ReferenceEquals(xl.ActiveSheet, cell.Worksheet) Then Exit Sub
+
       Dim bottomPx As Integer =
             xl.ActiveWindow.ActivePane.PointsToScreenPixelsY(cell.Top + cell.Height)
 
@@ -554,7 +561,7 @@ Public Module ExcelEventHandler
 
       Dim newX As Integer = rightPx
       Dim newY As Integer = bottomPx - btnH
-
+      Debug.WriteLine("SetWindowPos")
       SetWindowPos(activeButtonOverlay.Handle,
              IntPtr.Zero,
              newX,
@@ -562,6 +569,15 @@ Public Module ExcelEventHandler
              0,
              0,
              SWP_NOZORDER Or SWP_NOACTIVATE Or SWP_NOSIZE)
+
+    Catch ex As System.Runtime.InteropServices.COMException
+      ' 0x800AC472 = Excel is busy / in edit / recalculating / switching
+      If ex.ErrorCode = &H800AC472 Then
+        Exit Sub  ' silently ignore this tick
+      End If
+
+      ' Anything else is a real error
+      ErrorHandler.UnHandleError(ex)
 
     Catch ex As Exception
       ErrorHandler.UnHandleError(ex)

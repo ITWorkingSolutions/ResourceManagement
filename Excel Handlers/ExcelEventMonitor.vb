@@ -64,6 +64,21 @@ Public Class ExcelEventMonitor
   End Sub
 
   ' ==========================================================================================
+  ' Routine: App_SheetDeactivate
+  ' Purpose:
+  '   Global handler for sheet deactivation. Stop the timmer and clear active overlays to
+  '   prevent misalignment and stale state when
+  ' Parameters:
+  '   
+  ' Returns:
+  '   None
+  ' Notes:
+  ' ==========================================================================================
+  Private Sub App_SheetDeactivate(Sh As Object) Handles App.SheetDeactivate
+    ClearActiveOverlays()
+  End Sub
+
+  ' ==========================================================================================
   ' Routine: App_SheetSelectionChange
   ' Purpose:
   '   Global handler for all sheet selections changes. Delegates to ExcelSelectionChangeHandler to
@@ -173,13 +188,52 @@ Public Class ExcelEventMonitor
 
       Dim r = wnd.ScrollRow
       Dim c = wnd.ScrollColumn
-
+      ' --- SCROLL DETECTED: keep button, close list, reposition based on lastOverlayCellAddress ---
       If r <> lastRow OrElse c <> lastCol Then
+        Debug.WriteLine("Scroll → reposition or hide")
+
         lastRow = r
         lastCol = c
-        ClearActiveOverlays()
+
+        If Not String.IsNullOrEmpty(lastOverlayCellAddress) Then
+          Try
+            Dim cell = xl.Range(lastOverlayCellAddress)
+
+            If cell IsNot Nothing Then
+              If CellIsVisible(xl, cell) Then
+                ' Cell still visible → reposition button
+                ExcelEventHandler.RepositionDropButton(cell)
+              Else
+                ' Cell off-screen → hide button
+                If ExcelEventHandler.activeButtonOverlay IsNot Nothing Then
+                  ExcelEventHandler.activeButtonOverlay.Dispose()
+                  ExcelEventHandler.activeButtonOverlay = Nothing
+                End If
+              End If
+            End If
+
+          Catch comEx As System.Runtime.InteropServices.COMException
+            Exit Sub
+          End Try
+        End If
+
+        ' Always close list on scroll
+        If ExcelEventHandler.activeListOverlay IsNot Nothing Then
+          ExcelEventHandler.activeListOverlay.Dispose()
+          ExcelEventHandler.activeListOverlay = Nothing
+        End If
+
         Return
       End If
+
+      'If r <> lastRow OrElse c <> lastCol Then
+      '  lastRow = r
+      '  lastCol = c
+      '  Debug.WriteLine("Call ClearActiveOverlays")
+      '  ClearActiveOverlays()
+      '  Return
+      'End If
+      ' --- NO SCROLL CHANGE: check for cell geometry change (resize) ---
       Try
         Dim cell = xl.Range(lastOverlayCellAddress)
         If cell Is Nothing Then Exit Sub
@@ -193,7 +247,7 @@ Public Class ExcelEventMonitor
           lastCellLeft = cell.Left
           lastCellWidth = cell.Width
           lastCellHeight = cell.Height
-
+          Debug.WriteLine("Resize → RepositionDropButton")
           ExcelEventHandler.RepositionDropButton(cell)
 
           If ExcelEventHandler.activeListOverlay IsNot Nothing Then
@@ -219,6 +273,34 @@ Public Class ExcelEventMonitor
   End Sub
 
   ' ==========================================================================================
+  ' Routine:    CellIsVisible
+  ' Purpose:    Checks if a given cell is currently visible in the active window viewport.
+  ' Parameters:
+  '   xl    - Excel application instance
+  '   cell  - Cell to check for visibility
+  ' Returns:
+  '   True if the cell is visible in the current viewport, False otherwise.
+  ' Notes:
+  ' ==========================================================================================
+  Private Function CellIsVisible(xl As Excel.Application, cell As Excel.Range) As Boolean
+    Dim wnd = xl.ActiveWindow
+    If wnd Is Nothing Then Return False
+
+    Dim firstRow As Long = wnd.ScrollRow
+    Dim firstCol As Long = wnd.ScrollColumn
+
+    Dim vis = wnd.VisibleRange
+    Dim rowCount As Long = vis.Rows.Count
+    Dim colCount As Long = vis.Columns.Count
+
+    Dim lastRow As Long = firstRow + rowCount - 1
+    Dim lastCol As Long = firstCol + colCount - 1
+
+    Return (cell.Row >= firstRow AndAlso cell.Row <= lastRow AndAlso
+            cell.Column >= firstCol AndAlso cell.Column <= lastCol)
+  End Function
+
+  ' ==========================================================================================
   ' Routine:    StopAllTimers
   ' Purpose:    Stops all active timers in the ExcelEventMonitor.
   ' Parameters:
@@ -233,6 +315,7 @@ Public Class ExcelEventMonitor
       scrollTimer = Nothing
     End If
   End Sub
+
 
 #End Region
 
