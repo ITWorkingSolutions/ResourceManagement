@@ -38,8 +38,17 @@ Friend Class SQLiteConnectionWrapper
   ' ------------------------------------------------------------
   Friend Sub Close()
     If _isOpen Then
-      _conn.Close()
-      _conn.Dispose()
+      Try
+        SqliteConnection.ClearPool(_conn)
+      Catch
+      End Try
+
+      Try
+        _conn.Close()
+        _conn.Dispose()
+      Catch
+      End Try
+
       _conn = Nothing
       _isOpen = False
     End If
@@ -101,7 +110,7 @@ Friend Class SQLiteConnectionWrapper
   Friend Function OpenDataSet(sqlText As String) As SQLiteDataRowReader
     Dim cmd As New SqliteCommand(sqlText, _conn)
     Dim reader As SqliteDataReader = cmd.ExecuteReader()
-    Return New SQLiteDataRowReader(reader)
+    Return New SQLiteDataRowReader(reader, cmd)
   End Function
 
   ' ------------------------------------------------------------

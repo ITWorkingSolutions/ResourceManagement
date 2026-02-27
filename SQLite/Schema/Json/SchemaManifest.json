@@ -224,7 +224,7 @@
         },
         {
           "name": "tblResourceNameValueListItem",
-          "className": "RecordResourceNameValueistItem",
+          "className": "RecordResourceNameValueListItem",
           "fields": [
             {
               "name": "ResourceID",
@@ -503,107 +503,17 @@
         {
           "name": "vwDim_Resource",
           "dependsOn": [ "tblResource", "tblListItem" ],
-          "sqlResource": "ResourceManagement.vwDim_Resource.sql",
-          "columns": [
-            {
-              "name": "ResourceID",
-              "type": "TEXT"
-            },
-            {
-              "name": "PreferredName",
-              "type": "TEXT"
-            },
-            {
-              "name": "FirstName",
-              "type": "TEXT"
-            },
-            {
-              "name": "LastName",
-              "type": "TEXT"
-            },
-            {
-              "name": "SalutationID",
-              "type": "TEXT"
-            },
-            {
-              "name": "SalutationName",
-              "type": "TEXT"
-            },
-            {
-              "name": "GenderID",
-              "type": "TEXT"
-            },
-            {
-              "name": "GenderName",
-              "type": "TEXT"
-            },
-            {
-              "name": "Email",
-              "type": "TEXT"
-            },
-            {
-              "name": "Phone",
-              "type": "TEXT"
-            },
-            {
-              "name": "StartDate",
-              "type": "TEXT"
-            },
-            {
-              "name": "EndDate",
-              "type": "TEXT"
-            },
-            {
-              "name": "IsActiveOnDate",
-              "type": "BOOLEAN"
-            }
-          ]
+          "sqlResource": "ResourceManagement.vwDim_Resource.sql"
         },
         {
           "name": "vwDim_CustomField",
           "dependsOn": [ "tblResourceListItem", "tblListItemType" ],
-          "sqlResource": "ResourceManagement.vwDim_CustomField.sql",
-          "columns": [
-            {
-              "name": "FieldID",
-              "type": "TEXT"
-            },
-            {
-              "name": "FieldName",
-              "type": "TEXT"
-            },
-            {
-              "name": "ValueType",
-              "type": "TEXT"
-            },
-            {
-              "name": "ListItemTypeID",
-              "type": "TEXT"
-            },
-            {
-              "name": "ListItemTypeName",
-              "type": "TEXT"
-            }
-          ]
+          "sqlResource": "ResourceManagement.vwDim_CustomField.sql"
         },
         {
           "name": "vwDim_CustomFieldValue",
           "dependsOn": [ "tblListItem", "tblResourceListItem" ],
-          "sqlResource": "ResourceManagement.vwDim_CustomFieldValue.sql",
-          "columns": [
-            {
-              "name": "FieldID",
-              "type": "TEXT"
-            },
-            {
-              "name": "ValueID",
-              "type": "TEXT"
-            },
-            {
-              "name": "ValueName",
-              "type": "TEXT"
-            }
-          ]
+          "sqlResource": "ResourceManagement.vwDim_CustomFieldValue.sql"
         },
         {
           "name": "vwFact_ResourceCustomField",
@@ -614,33 +524,7 @@
             "tblResourceNameValueListItem",
             "tblListItem"
           ],
-          "sqlResource": "ResourceManagement.vwFact_ResourceCustomField.sql",
-          "columns": [
-            {
-              "name": "ResourceID",
-              "type": "TEXT"
-            },
-            {
-              "name": "FieldID",
-              "type": "TEXT"
-            },
-            {
-              "name": "FieldName",
-              "type": "TEXT"
-            },
-            {
-              "name": "ValueID",
-              "type": "TEXT"
-            },
-            {
-              "name": "ValueName",
-              "type": "TEXT"
-            },
-            {
-              "name": "ValueText",
-              "type": "TEXT"
-            }
-          ]
+          "sqlResource": "ResourceManagement.vwFact_ResourceCustomField.sql"
         },
         {
           "name": "vwFact_ResourceAvailabilityPattern",
@@ -652,139 +536,17 @@
             "tblPatternMonthly",
             "tblPatternRange"
           ],
-          "sqlResource": "ResourceManagement.vwFact_ResourceAvailabilityPattern.sql",
-          "columns": [
-            {
-              "name": "AvailabilityID",
-              "type": "TEXT"
-            },
-            {
-              "name": "ResourceID",
-              "type": "TEXT"
-            },
-            {
-              "name": "PatternType",
-              "type": "TEXT"
-            },
-            {
-              "name": "Mode",
-              "type": "TEXT"
-            },
-            {
-              "name": "AllDay",
-              "type": "BOOLEAN"
-            },
-            {
-              "name": "StartTime",
-              "type": "TEXT"
-            },
-            {
-              "name": "EndTime",
-              "type": "TEXT"
-            },
-            {
-              "name": "PatternStartDate",
-              "type": "TEXT"
-            },
-            {
-              "name": "PatternEndDate",
-              "type": "TEXT"
-            },
-            {
-              "name": "PatternEndType",
-              "type": "TEXT"
-            },
-            {
-              "name": "PatternEndAfterOccurrences",
-              "type": "LONG"
-            },
-            {
-              "name": "RangeStartDate",
-              "type": "TEXT"
-            },
-            {
-              "name": "RangeEndDate",
-              "type": "TEXT"
-            },
-            {
-              "name": "RecurWeeks",
-              "type": "LONG"
-            },
-            {
-              "name": "WeeklyDayOfWeek",
-              "type": "TEXT"
-            },
-            {
-              "name": "MonthlyType",
-              "type": "TEXT"
-            },
-            {
-              "name": "MonthlyDayOfMonth",
-              "type": "LONG"
-            },
-            {
-              "name": "MonthlyOrdinal",
-              "type": "TEXT"
-            },
-            {
-              "name": "MonthlyDayOfWeek",
-              "type": "TEXT"
-            },
-            {
-              "name": "RecurMonths",
-              "type": "LONG"
-            }
-          ]
+          "sqlResource": "ResourceManagement.vwFact_ResourceAvailabilityPattern.sql"
         },
         {
           "name": "vwDim_Closure",
           "dependsOn": [ "tblClosure" ],
-          "sqlResource": "ResourceManagement.vwDim_Closure.sql",
-          "columns": [
-            {
-              "name": "ClosureID",
-              "type": "TEXT"
-            },
-            {
-              "name": "ClosureName",
-              "type": "TEXT"
-            },
-            {
-              "name": "StartDate",
-              "type": "TEXT"
-            },
-            {
-              "name": "EndDate",
-              "type": "TEXT"
-            }
-          ]
+          "sqlResource": "ResourceManagement.vwDim_Closure.sql"
         },
         {
           "name": "vwDim_List",
           "dependsOn": [ "tblListItem", "tblListItemType" ],
-          "sqlResource": "ResourceManagement.vwDim_List.sql",
-          "columns": [
-            {
-              "name": "ListTypeID",
-              "type": "TEXT"
-            },
-            {
-              "name": "ListTypeName",
-              "type": "TEXT"
-            },
-            {
-              "name": "IsSystemType",
-              "type": "BOOLEAN"
-            },
-            {
-              "name": "ItemID",
-              "type": "TEXT"
-            },
-            {
-              "name": "ListItemName",
-              "type": "TEXT"
-            }
-          ]
+          "sqlResource": "ResourceManagement.vwDim_List.sql"
         }
       ]
     }

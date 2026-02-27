@@ -109,7 +109,9 @@ Module UILoaderSaverDatabaseManagement
           ErrorHandler.UnHandleError(ex)
           Exit Sub
         Finally
-          If conn IsNot Nothing Then conn.Close()
+          If conn IsNot Nothing Then
+            conn.Close()
+          End If
         End Try
       ElseIf model.PendingAction = DatabaseManagementAction.AddExisting Then
         ' === Validate existing database ===
@@ -120,9 +122,13 @@ Module UILoaderSaverDatabaseManagement
                           "Error",
                           MessageBoxButtons.OK,
                           MessageBoxIcon.Warning)
+          'If conn IsNot Nothing Then conn.Close()
           Exit Sub
         Finally
-          If conn IsNot Nothing Then conn.Close()
+          If conn IsNot Nothing Then
+            conn.Close()
+          End If
+
         End Try
       End If
 

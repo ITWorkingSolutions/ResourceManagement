@@ -5,10 +5,12 @@ Friend Class SQLiteDataRowReader
   Implements IDisposable
 
   Private ReadOnly _reader As SqliteDataReader
+  Private ReadOnly _command As SqliteCommand
   Private _currentRow As SQLiteDataRow
 
-  Friend Sub New(reader As SqliteDataReader)
+  Friend Sub New(reader As SqliteDataReader, command As SqliteCommand)
     _reader = reader
+    _command = command
   End Sub
 
   ' ------------------------------------------------------------
@@ -54,7 +56,10 @@ Friend Class SQLiteDataRowReader
   ' Cleanup
   ' ------------------------------------------------------------
   Friend Sub Dispose() Implements IDisposable.Dispose
+    _reader?.Close()
     _reader?.Dispose()
+    _command?.Dispose()
   End Sub
+
 
 End Class

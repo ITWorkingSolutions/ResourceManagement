@@ -158,13 +158,10 @@ Friend Class DatabaseManager
   '    e      - Click event args
   '---------------------------------------------------------------------------
   Private Sub btnAddNew_Click(sender As Object, e As EventArgs) Handles btnAddNew.Click
-
+    ' === Variable declarations ===
+    Dim dlg As SaveFileDialog
+    Dim selectedPath As String
     Try
-      ' === Variable declarations ===
-      Dim dlg As SaveFileDialog
-      Dim selectedPath As String
-      Dim conn As SQLiteConnectionWrapper = Nothing
-
       ' === Configure dialog ===
       dlg = New SaveFileDialog()
       dlg.Title = "Create New Database"

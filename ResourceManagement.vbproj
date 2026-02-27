@@ -552,7 +552,7 @@
     <Resource Include="Resources\16field.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SQLite\Schema\Views\vwDim_List.sql" />
+    <EmbeddedResource Include="SQLite\Schema\Views\vwDim_List.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

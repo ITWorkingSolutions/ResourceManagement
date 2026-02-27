@@ -561,7 +561,6 @@ Public Module ExcelEventHandler
 
       Dim newX As Integer = rightPx
       Dim newY As Integer = bottomPx - btnH
-      Debug.WriteLine("SetWindowPos")
       SetWindowPos(activeButtonOverlay.Handle,
              IntPtr.Zero,
              newX,

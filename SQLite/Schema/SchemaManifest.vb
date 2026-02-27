@@ -1,25 +1,24 @@
 ﻿Option Explicit On
 
-Friend Class SchemaManifestRoot
-  Friend Property Versions As List(Of SchemaManifest)
-  Friend Property Views As List(Of SchemaView)
+Public Class SchemaManifestRoot
+  Public Property Versions As List(Of SchemaManifest)
 End Class
 
-Friend Class SchemaManifest
+Public Class SchemaManifest
 
   ' ------------------------------------------------------------
   '  Properties
   ' ------------------------------------------------------------
-  Friend Property Version As String
+  Public Property Version As String
   ' Strongly typed list of SchemaTable
-  Friend Property Tables As List(Of SchemaTable)
+  Public Property Tables As List(Of SchemaTable)
   ' Strongly typed list of SchemaView
-  Friend Property Views As List(Of SchemaView)
+  Public Property Views As List(Of SchemaView)
 
   ' ------------------------------------------------------------
   '  Constructor
   ' ------------------------------------------------------------
-  Friend Sub New()
+  Public Sub New()
     Tables = New List(Of SchemaTable)()
     Views = New List(Of SchemaView)()
   End Sub
@@ -27,7 +26,7 @@ Friend Class SchemaManifest
   ' ------------------------------------------------------------
   '  Add a table to the manifest
   ' ------------------------------------------------------------
-  Friend Sub AddTable(tbl As SchemaTable)
+  Public Sub AddTable(tbl As SchemaTable)
     If tbl Is Nothing Then Exit Sub
     Tables.Add(tbl)
   End Sub
@@ -35,7 +34,7 @@ Friend Class SchemaManifest
   ' ------------------------------------------------------------
   '  Lookup by table name
   ' ------------------------------------------------------------
-  Friend Function GetTable(name As String) As SchemaTable
+  Public Function GetTable(name As String) As SchemaTable
     If String.IsNullOrWhiteSpace(name) Then Return Nothing
 
     Return Tables.

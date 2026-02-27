@@ -38,8 +38,8 @@ Module DatabaseOpen
       ' ------------------------------------------------------------
       '  Early validation: ensure file is a real SQLite DB
       ' ------------------------------------------------------------
+      Dim cmdWrapper = conn.CreateCommand("PRAGMA schema_version;")
       Try
-        Dim cmdWrapper = conn.CreateCommand("PRAGMA schema_version;")
         cmdWrapper.InnerCommand.ExecuteScalar()
       Catch
         If existedBefore Then
@@ -49,6 +49,9 @@ Module DatabaseOpen
           Throw New InvalidOperationException(
                     "The selected path is not a valid SQLite database file.")
         End If
+      Finally
+        cmdWrapper.InnerCommand.Dispose()
+        cmdWrapper = Nothing
       End Try
 
       ' ------------------------------------------------------------

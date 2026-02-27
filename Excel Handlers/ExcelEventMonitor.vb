@@ -190,7 +190,6 @@ Public Class ExcelEventMonitor
       Dim c = wnd.ScrollColumn
       ' --- SCROLL DETECTED: keep button, close list, reposition based on lastOverlayCellAddress ---
       If r <> lastRow OrElse c <> lastCol Then
-        Debug.WriteLine("Scroll → reposition or hide")
 
         lastRow = r
         lastCol = c
@@ -226,13 +225,6 @@ Public Class ExcelEventMonitor
         Return
       End If
 
-      'If r <> lastRow OrElse c <> lastCol Then
-      '  lastRow = r
-      '  lastCol = c
-      '  Debug.WriteLine("Call ClearActiveOverlays")
-      '  ClearActiveOverlays()
-      '  Return
-      'End If
       ' --- NO SCROLL CHANGE: check for cell geometry change (resize) ---
       Try
         Dim cell = xl.Range(lastOverlayCellAddress)
@@ -247,7 +239,6 @@ Public Class ExcelEventMonitor
           lastCellLeft = cell.Left
           lastCellWidth = cell.Width
           lastCellHeight = cell.Height
-          Debug.WriteLine("Resize → RepositionDropButton")
           ExcelEventHandler.RepositionDropButton(cell)
 
           If ExcelEventHandler.activeListOverlay IsNot Nothing Then

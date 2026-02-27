@@ -68,7 +68,11 @@ Friend Class SQLiteCommandWrapper
   ' Execute (non-query)
   ' ------------------------------------------------------------
   Friend Sub Execute()
-    _cmd.ExecuteNonQuery()
+    Try
+      _cmd.ExecuteNonQuery()
+    Finally
+      _cmd.Dispose()
+    End Try
   End Sub
 
   ' ------------------------------------------------------------
@@ -76,7 +80,7 @@ Friend Class SQLiteCommandWrapper
   ' ------------------------------------------------------------
   Friend Function OpenDataSet() As SQLiteDataRowReader
     Dim reader As SqliteDataReader = _cmd.ExecuteReader()
-    Return New SQLiteDataRowReader(reader)
+    Return New SQLiteDataRowReader(reader, _cmd)
   End Function
 
   ' ------------------------------------------------------------

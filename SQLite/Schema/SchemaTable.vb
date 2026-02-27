@@ -1,21 +1,21 @@
 ﻿Option Explicit On
 
-Friend Class SchemaTable
+Public Class SchemaTable
 
   ' ------------------------------------------------------------
   '  Properties
   ' ------------------------------------------------------------
-  Friend Property Name As String
-  Friend Property ClassName As String
+  Public Property Name As String
+  Public Property ClassName As String
 
   ' Strongly typed lists
-  Friend Property Fields As List(Of SchemaField)
-  Friend Property ForeignKeys As List(Of SchemaForeignKey)
+  Public Property Fields As List(Of SchemaField)
+  Public Property ForeignKeys As List(Of SchemaForeignKey)
 
   ' ------------------------------------------------------------
   '  Constructor
   ' ------------------------------------------------------------
-  Friend Sub New()
+  Public Sub New()
     Fields = New List(Of SchemaField)()
     ForeignKeys = New List(Of SchemaForeignKey)()
   End Sub
@@ -23,7 +23,7 @@ Friend Class SchemaTable
   ' ------------------------------------------------------------
   '  Add a field
   ' ------------------------------------------------------------
-  Friend Sub AddField(fld As SchemaField)
+  Public Sub AddField(fld As SchemaField)
     If fld Is Nothing Then Exit Sub
     Fields.Add(fld)
   End Sub
@@ -31,7 +31,7 @@ Friend Class SchemaTable
   ' ------------------------------------------------------------
   '  Lookup a field by name
   ' ------------------------------------------------------------
-  Friend Function GetField(name As String) As SchemaField
+  Public Function GetField(name As String) As SchemaField
     If String.IsNullOrWhiteSpace(name) Then Return Nothing
 
     Return Fields.
@@ -41,7 +41,7 @@ Friend Class SchemaTable
   ' ------------------------------------------------------------
   '  Add a foreign key
   ' ------------------------------------------------------------
-  Friend Sub AddForeignKey(fk As SchemaForeignKey)
+  Public Sub AddForeignKey(fk As SchemaForeignKey)
     If fk Is Nothing Then Exit Sub
     ForeignKeys.Add(fk)
   End Sub
@@ -49,7 +49,7 @@ Friend Class SchemaTable
   ' ------------------------------------------------------------
   '  Get all primary key fields
   ' ------------------------------------------------------------
-  Friend Function PrimaryKeyFields() As List(Of SchemaField)
+  Public Function PrimaryKeyFields() As List(Of SchemaField)
     Return Fields.
         Where(Function(f) f.IsPrimaryKey).
         ToList()

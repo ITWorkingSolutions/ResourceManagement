@@ -115,6 +115,7 @@ Module SchemaLoader
       Return latest
 
     Catch ex As Exception
+      Debug.WriteLine(ex.ToString())
       Throw New InvalidDataException("Schema manifest could not be deserialized.", ex)
 
     Finally
