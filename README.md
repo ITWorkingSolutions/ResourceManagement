@@ -7,3 +7,6 @@ ReourceManagement excel addin is less about the resource management and more abo
 
 From a code perspective the application can be broken down as follows:
 ![icon](https://raw.githubusercontent.com/ITWorkingSolutions/ResourceManagement/refs/heads/asset/svg/ResourceManagement.svg)
+
+Video overview
+https://youtu.be/tHT8a3vlh2o
