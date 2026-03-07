@@ -215,20 +215,22 @@ Public Module ExcelEventHandler
       Dim ws As Excel.Worksheet = app.ActiveSheet
       Dim src As Excel.Range = LastPasteSource
       Dim tgt As Excel.Range = Nothing
-
       ' Exist if no src range set
       If src Is Nothing Then Exit Sub
 
       ' Make sure the target is at least the source range size
       tgt = SetTargetRange(src)
+      tgt = ShrinkTargetForSnapshot(src, tgt)
 
       ' BEFORE snapshot
       Dim beforeSnap As RangeSnapshot = SnapshotRange(tgt)
+
       ' Let Excel do a normal paste
       app.CommandBars.ExecuteMso("Paste")
 
       ' Make sure the target is at least the source range size
       tgt = SetTargetRange(src)
+      tgt = ShrinkTargetForSnapshot(src, tgt)
 
       ' AFTER snapshot
       Dim afterSnap As RangeSnapshot = SnapshotRange(tgt)
@@ -252,6 +254,55 @@ Public Module ExcelEventHandler
     End Try
 
   End Sub
+
+  ' ==========================================================================================
+  ' Routine: ShrinkTargetForSnapshot
+  ' Purpose:
+  '   Reduce the target range ONLY when it is an entire row, column, or sheet, so that
+  '   SnapshotRange does not walk millions of cells.
+  '
+  ' Parameters:
+  '   src - The copied source range.
+  '   tgt - The target range returned by SetTargetRange(src).
+  '
+  ' Returns:
+  '   Excel.Range - A smaller range safe for SnapshotRange, or the original tgt if no shrink.
+  '
+  ' Contract:
+  '   - Does NOT mutate workbook state.
+  '   - BEFORE and AFTER must both use the SAME shrunk tgt to keep IsPaste valid.
+  ' ==========================================================================================
+  Private Function ShrinkTargetForSnapshot(src As Excel.Range, tgt As Excel.Range) As Excel.Range
+    Try
+      If src Is Nothing OrElse tgt Is Nothing Then Return tgt
+
+      Dim ws As Excel.Worksheet = tgt.Worksheet
+
+      Dim isWholeSheet As Boolean = (tgt.Address(False, False) = ws.Cells.Address(False, False))
+      Dim isWholeColumn As Boolean = (tgt.Rows.CountLarge = ws.Rows.CountLarge)
+      Dim isWholeRow As Boolean = (tgt.Columns.CountLarge = ws.Columns.CountLarge)
+
+      ' Only shrink in the pathological cases
+      If Not (isWholeSheet OrElse isWholeColumn OrElse isWholeRow) Then
+        Return tgt
+      End If
+
+      ' Shrink to a single source-sized block at the anchor (top-left of tgt)
+      Dim rng As Excel.Range = ws.UsedRange
+
+      Dim tgtRows As Long = tgt.Rows.CountLarge - 1
+      Dim tgtCols As Long = tgt.Columns.CountLarge - 1
+
+      If isWholeSheet Then Return rng
+      If isWholeColumn Then Return ws.Range(ws.Cells(1, tgt.Column), ws.Cells(rng.Rows.CountLarge, tgt.Column + tgtCols))
+      If isWholeRow Then Return ws.Range(ws.Cells(tgt.Row, 1), ws.Cells(tgt.Row + tgtRows, rng.Columns.CountLarge))
+      Return tgt
+
+    Catch ex As Exception
+      ErrorHandler.UnHandleError(ex, "ShrinkTargetForSnapshot")
+      Return tgt
+    End Try
+  End Function
 
   ' ==========================================================================================
   ' Routine:    SetTargetRange
@@ -822,6 +873,7 @@ Public Module ExcelEventHandler
 
     Return snap
   End Function
+
 
   ' ==========================================================================================
   ' Routine: SameAddressSet

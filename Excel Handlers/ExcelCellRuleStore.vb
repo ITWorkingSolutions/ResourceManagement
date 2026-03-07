@@ -42,7 +42,7 @@ Friend Module ExcelCellRuleStore
   Private Const RuleRegionStateNeedsRepair As String = "NeedsRepair"
 
   ' Prefix for hidden Defined Names used to store per-cell GUID identity.
-  Private Const NamePrefix As String = "RM_"
+  Public Const NamePrefix As String = "RM_"
 
   ' ==========================================================================================
   ' Class: RuleParameter
